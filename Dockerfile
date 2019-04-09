@@ -1,11 +1,8 @@
 FROM golang as build
-ENV GOBIN=/go/src/github.com/coreos/coreos-cloudinit/bin \
-    GOPATH=/go/src/github.com/coreos/coreos-cloudinit/gopath
 WORKDIR /go/src/github.com/coreos/coreos-cloudinit/
 COPY . .
 RUN set -eux \
- && export GLDFLAGS="-extldflags -static" \
- && go build -ldflags "${GLDFLAGS}" -o ${GOBIN}/coreos-cloudinit github.com/coreos/coreos-cloudinit
+ && ./build
 
 FROM scratch
 WORKDIR /
