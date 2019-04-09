@@ -1,11 +1,10 @@
 FROM golang as build
-WORKDIR /go/src/github.com/coreos/coreos-cloudinit/
-COPY . .
 ENV GOBIN=/go/src/github.com/coreos/coreos-cloudinit/bin \
     GOPATH=/go/src/github.com/coreos/coreos-cloudinit/gopath
+WORKDIR /go/src/github.com/coreos/coreos-cloudinit/
+COPY . .
 RUN set -eux \
- && export VERSION=$(git describe --dirty --tags) \
- && export GLDFLAGS="-X main.version=\"${VERSION}\"" \
+ && export GLDFLAGS="-X main.version=\"$(git describe --dirty --tags)\"" \
  && go build -ldflags "${GLDFLAGS}" -o ${GOBIN}/coreos-cloudinit github.com/coreos/coreos-cloudinit
 
 FROM scratch
