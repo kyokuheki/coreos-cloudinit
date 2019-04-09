@@ -2,7 +2,7 @@ FROM golang as build
 WORKDIR /go/src/github.com/coreos/coreos-cloudinit/
 COPY . .
 RUN set -eux \
- && ./coreos-cloudinit/build
+ && ./build
 
 FROM scratch
 WORKDIR /
