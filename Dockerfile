@@ -4,7 +4,7 @@ ENV GOBIN=/go/src/github.com/coreos/coreos-cloudinit/bin \
 WORKDIR /go/src/github.com/coreos/coreos-cloudinit/
 COPY . .
 RUN set -eux \
- && export GLDFLAGS="-X main.version=\"$(git describe --dirty --tags)\" -extldflags -static" \
+ && export GLDFLAGS="-extldflags -static" \
  && go build -ldflags "${GLDFLAGS}" -o ${GOBIN}/coreos-cloudinit github.com/coreos/coreos-cloudinit
 
 FROM scratch
